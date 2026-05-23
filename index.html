@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capybara Finance</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: #2d3748;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .game-info {
+            display: flex;
+            justify-content: space-around;
+            background: #4a5568;
+            padding: 15px;
+            color: white;
+        }
+        
+        .game-info div {
+            font-size: 18px;
+        }
+        
+        .game-info span {
+            font-weight: bold;
+            color: #fbbf24;
+        }
+        
+        .main-content {
+            display: flex;
+            padding: 20px;
+            gap: 20px;
+        }
+        
+        .players-table {
+            flex: 2;
+            overflow-x: auto;
+        }
+        
+        .actions-panel {
+            flex: 1;
+            background: #f7fafc;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        th {
+            background: #4a5568;
+            color: white;
+        }
+        
+        .current-turn {
+            background: #fef3c7;
+            font-weight: bold;
+        }
+        
+        .in-jail {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+        
+        button {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        
+        button:hover {
+            background: #5a67d8;
+            transform: translateY(-2px);
+        }
+        
+        .danger-btn {
+            background: #ef4444;
+        }
+        
+        .danger-btn:hover {
+            background: #dc2626;
+        }
+        
+        .success-btn {
+            background: #10b981;
+        }
+        
+        .success-btn:hover {
+            background: #059669;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .investment-item {
+            background: #f3e8ff;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 8px;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #cbd5e0;
+            border-radius: 5px;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #48bb78;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            animation: slideIn 0.3s ease-out;
+            z-index: 1000;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🦫 CAPYBARA FINANCE</h1>
+            <p>Round-Based Financial Strategy Game</p>
+        </div>
+        
+        <div class="game-info">
+            <div>📊 Round: <span id="roundNum">1</span> / 5</div>
+            <div>👥 Players: <span id="playerCount">0</span></div>
+            <div>🎯 Current Turn: <span id="currentPlayer">-</span></div>
+            <div>🚫 In Jail: <span id="jailStatus">None</span></div>
+        </div>
+        
+        <div class="main-content">
+            <div class="players-table">
+                <table id="playersTable">
+                    <thead>
+                        <tr>
+                            <th>Player</th>
+                            <th>Monthly Income</th>
+                            <th>Cash</th>
+                            <th>Investments</th>
+                            <th>Health</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="playersTableBody">
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="actions-panel">
+                <h3>🎮 Game Actions</h3>
+                <button onclick="setupGame()">1. Setup Game</button>
+                <button onclick="modifyIncome()">2. Modify Monthly Income</button>
+                <button onclick="modifyCash()">3. Modify Cash (+/-)</button>
+                <button onclick="addInvestment()">4. Add Investment</button>
+                <button onclick="modifyHealth()">5. Modify Health (+/-)</button>
+                <button onclick="sendToJail()">6. Send to Jail</button>
+                <button onclick="finishTurn()" class="success-btn">7. ✅ Finish Turn</button>
+                <button onclick="endRound()" class="success-btn">8. 🏁 End Round</button>
+                <button onclick="showReport()">9. 📊 Full Report</button>
+                <button onclick="resetGame()" class="danger-btn">10. 🔄 Reset Game</button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <div id="modalContent"></div>
+            <button onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
+    <script>
+        // ========== GAME STATE ==========
+        let players = [];
+        let currentRound = 1;
+        let currentPlayerIndex = 0;
+        let playersActedThisRound = [];
+        let gameActive = true;
+        let totalRounds = 5;
+        
+        // ========== SETUP ==========
+        function setupGame() {
+            const numPlayers = parseInt(prompt("How many players? (1-5)", "2"));
+            if (isNaN(numPlayers) || numPlayers < 1 || numPlayers > 5) {
+                showNotification("Please enter 1-5 players!", "error");
+                return;
+            }
+            
+            players = [];
+            for (let i = 0; i < numPlayers; i++) {
+                const name = prompt(`Player ${i+1} name:`, `Player ${i+1}`);
+                players.push({
+                    id: i,
+                    name: name,
+                    monthlyIncome: 5000,  // Start with $5,000 monthly income
+                    cash: 0,              // Start at $0
+                    investments: [],      // Array of investment objects
+                    health: 5,            // Start with 5 health
+                    inJail: false,
+                    jailTurns: 0
+                });
+            }
+            
+            currentRound = 1;
+            currentPlayerIndex = 0;
+            playersActedThisRound = [];
+            gameActive = true;
+            
+            updateUI();
+            showNotification(`✅ Game setup with ${numPlayers} players! Each starts with $5,000 monthly income and 5 health.`);
+        }
+        
+        // ========== UI UPDATE ==========
+        function updateUI() {
+            document.getElementById('roundNum').textContent = currentRound;
+            document.getElementById('playerCount').textContent = players.length;
+            
+            if (players.length > 0 && gameActive) {
+                document.getElementById('currentPlayer').textContent = players[currentPlayerIndex].name;
+                const jailedPlayers = players.filter(p => p.inJail).map(p => p.name);
+                document.getElementById('jailStatus').textContent = jailedPlayers.length > 0 ? jailedPlayers.join(', ') : 'None';
+            }
+            
+            const tbody = document.getElementById('playersTableBody');
+            tbody.innerHTML = '';
+            
+            players.forEach((player, idx) => {
+                const row = tbody.insertRow();
+                const isCurrentTurn = (idx === currentPlayerIndex && gameActive);
+                const isJailed = player.inJail;
+                
+                if (isCurrentTurn) row.className = 'current-turn';
+                if (isJailed) row.className = 'in-jail';
+                
+                // Player name
+                let nameCell = row.insertCell(0);
+                nameCell.innerHTML = isCurrentTurn ? `👉 ${player.name} 👈` : player.name;
+                
+                // Monthly income
+                let incomeCell = row.insertCell(1);
+                incomeCell.innerHTML = `$${player.monthlyIncome.toLocaleString()}`;
+                
+                // Cash
+                let cashCell = row.insertCell(2);
+                cashCell.innerHTML = `$${player.cash.toLocaleString()}`;
+                cashCell.style.color = player.cash < 0 ? '#dc2626' : '#10b981';
+                
+                // Investments
+                let investCell = row.insertCell(3);
+                if (player.investments.length === 0) {
+                    investCell.innerHTML = 'None';
+                } else {
+                    investCell.innerHTML = player.investments.map(inv => 
+                        `$${inv.amount.toLocaleString()} @ ${inv.rate}%`
+                    ).join('<br>');
+                }
+                
+                // Health
+                let healthCell = row.insertCell(4);
+                healthCell.innerHTML = `${player.health}`;
+                healthCell.style.color = player.health < 3 ? '#dc2626' : '#10b981';
+                
+                // Status
+                let statusCell = row.insertCell(5);
+                if (player.inJail) {
+                    statusCell.innerHTML = `🚫 JAIL (${player.jailTurns} turns)`;
+                } else if (playersActedThisRound.includes(player.id)) {
+                    statusCell.innerHTML = '✓ Acted';
+                } else {
+                    statusCell.innerHTML = '⏳ Pending';
+                }
+            });
+        }
+        
+        // ========== CURRENT PLAYER HELPER ==========
+        function getCurrentPlayer() {
+            if (!gameActive || players.length === 0) {
+                showNotification("Game not active or no players!", "error");
+                return null;
+            }
+            return players[currentPlayerIndex];
+        }
+        
+        function checkJailSkip() {
+            const player = getCurrentPlayer();
+            if (!player) return true;
+            
+            if (player.inJail) {
+                player.jailTurns--;
+                if (player.jailTurns <= 0) {
+                    player.inJail = false;
+                    showNotification(`✅ ${player.name} is released from jail!`);
+                } else {
+                    showNotification(`🚫 ${player.name} is in jail! ${player.jailTurns} turn(s) remaining. Skipping turn.`);
+                    finishTurn(); // Auto-skip
+                    return false;
+                }
+            }
+            return true;
+        }
+        
+        // ========== GAME ACTIONS ==========
+        function modifyIncome() {
+            const player = getCurrentPlayer();
+            if (!player) return;
+            if (!checkJailSkip()) return;
+            
+            const amount = parseFloat(prompt(`Current monthly income: $${player.monthlyIncome.toLocaleString()}\nEnter new monthly income:`, player.monthlyIncome));
+            if (!isNaN(amount) && amount >= 0) {
+                player.monthlyIncome = amount;
+                showNotification(`✅ ${player.name}'s monthly income set to $${amount.toLocaleString()}`);
+                updateUI();
+            }
+        }
+        
+        function modifyCash() {
+            const player = getCurrentPlayer();
+            if (!player) return;
+            if (!checkJailSkip()) return;
+            
+            const amount = parseFloat(prompt(`Current cash: $${player.cash.toLocaleString()}\nEnter amount (+ for addition, - for subtraction):`, "0"));
+            if (!isNaN(amount)) {
+                player.cash += amount;
+                const action = amount >= 0 ? "added" : "subtracted";
+                showNotification(`✅ ${action.toUpperCase()} $${Math.abs(amount).toLocaleString()} to/from ${player.name}'s cash`);
+                updateUI();
+            }
+        }
+        
+        function addInvestment() {
+            const player = getCurrentPlayer();
+            if (!player) return;
+            if (!checkJailSkip()) return;
+            
+            const amount = parseFloat(prompt("Investment amount: $", "1000"));
+            if (isNaN(amount) || amount <= 0) {
+                showNotification("Invalid amount!", "error");
+                return;
+            }
+            
+            const rate = parseFloat(prompt("Interest rate (1-5%):", "3"));
+            if (isNaN(rate) || rate < 1 || rate > 5) {
+                showNotification("Interest rate must be between 1 and 5%!", "error");
+                return;
+            }
+            
+            // Check if player has enough cash (can go negative though)
+            player.investments.push({
+                id: Date.now(),
+                amount: amount,
+                rate: rate
+            });
+            
+            player.cash -= amount;
+            showNotification(`✅ ${player.name} invested $${amount.toLocaleString()} at ${rate}% interest!`);
+            updateUI();
+        }
+        
+        function modifyHealth() {
+            const player = getCurrentPlayer();
+            if (!player) return;
+            if (!checkJailSkip()) return;
+            
+            const change = parseInt(prompt(`Current health: ${player.health}\nEnter change (+ to gain, - to lose):`, "0"));
+            if (!isNaN(change)) {
+                player.health += change;
+                const action = change >= 0 ? "gained" : "lost";
+                showNotification(`❤️ ${player.name} ${action} ${Math.abs(change)} health. Health now: ${player.health}`);
+                
+                if (player.health <= 0) {
+                    showNotification(`💀 GAME OVER! ${player.name} has died from poor health!`, "error");
+                    gameActive = false;
+                }
+                updateUI();
+            }
+        }
+        
+        function sendToJail() {
+            const player = getCurrentPlayer();
+            if (!player) return;
+            
+            const turns = parseInt(prompt("How many turns in jail? (1-3)", "1"));
+            if (isNaN(turns) || turns < 1 || turns > 3) {
+                showNotification("Please enter 1-3 turns!", "error");
+                return;
+            }
+            
+            player.inJail = true;
+            player.jailTurns = turns;
+            showNotification(`🚫 ${player.name} sent to jail for ${turns} turn(s)!`);
+            updateUI();
+        }
+        
+        function finishTurn() {
+            const player = getCurrentPlayer();
+            if (!player) return;
+            
+            if (!playersActedThisRound.includes(player.id) && !player.inJail) {
+                playersActedThisRound.push(player.id);
+                showNotification(`✅ ${player.name} finished their turn!`);
+            }
+            
+            // Find next player who hasn't acted and isn't in jail
+            let nextFound = false;
+            for (let i = 1; i <= players.length; i++) {
+                const nextIndex = (currentPlayerIndex + i) % players.length;
+                const nextPlayer = players[nextIndex];
+                
+                if (!playersActedThisRound.includes(nextPlayer.id)) {
+                    currentPlayerIndex = nextIndex;
+                    nextFound = true;
+                    break;
+                }
+            }
+            
+            if (!nextFound) {
+                // All players have acted - end the round
+                endRound();
+            } else {
+                updateUI();
+                const nextPlayer = players[currentPlayerIndex];
+                if (nextPlayer.inJail) {
+                    showNotification(`🚫 ${nextPlayer.name} is in jail! Auto-skipping...`);
+                    finishTurn();
+                } else {
+                    showNotification(`🔄 Now it's ${nextPlayer.name}'s turn!`);
+                }
+            }
+        }
+        
+        function endRound() {
+            if (!gameActive) {
+                showNotification("Game already ended!", "error");
+                return;
+            }
+            
+            // Calculate annual income and update cash
+            let roundSummary = [];
+            
+            for (let player of players) {
+                // Annual income = monthly income × 12
+                const annualIncome = player.monthlyIncome * 12;
+                player.cash += annualIncome;
+                
+                // Calculate investment returns (interest on investments)
+                let totalInvestmentReturn = 0;
+                for (let inv of player.investments) {
+                    const annualReturn = inv.amount * (inv.rate / 100);
+                    totalInvestmentReturn += annualReturn;
+                    inv.amount += annualReturn; // Add return to investment amount
+                }
+                player.cash += totalInvestmentReturn;
+                
+                roundSummary.push({
+                    name: player.name,
+                    monthlyIncome: player.monthlyIncome,
+                    annualIncome: annualIncome,
+                    investmentReturn: totalInvestmentReturn,
+                    cash: player.cash,
+                    health: player.health,
+                    investments: [...player.investments]
+                });
+            }
+            
+            // Show popup with round stats
+            showRoundPopup(roundSummary);
+            
+            currentRound++;
+            playersActedThisRound = [];
+            currentPlayerIndex = 0;
+            
+            if (currentRound > totalRounds) {
+                gameActive = false;
+                showNotification("🏆 GAME COMPLETE! Final report coming...", "success");
+                showFinalReport();
+            } else {
+                showNotification(`🎉 ROUND ${currentRound - 1} COMPLETE! Starting Round ${currentRound}`);
+                updateUI();
+            }
+        }
+        
+        function showRoundPopup(summary) {
+            const modal = document.getElementById('modal');
+            const modalContent = document.getElementById('modalContent');
+            
+            let html = `<h2>📊 END OF ROUND ${currentRound - 1} REPORT</h2>`;
+            
+            for (let s of summary) {
+                html += `
+                    <div style="border: 1px solid #e2e8f0; padding: 15px; margin: 15px 0; border-radius: 10px;">
+                        <h3>${s.name}</h3>
+                        <p>💰 Monthly Income: $${s.monthlyIncome.toLocaleString()}</p>
+                        <p>📅 Annual Income (×12): $${s.annualIncome.toLocaleString()}</p>
+                        <p>📈 Investment Returns: $${s.investmentReturn.toLocaleString()}</p>
+                        <p>💵 Total Cash After Round: $${s.cash.toLocaleString()}</p>
+                        <p>❤️ Health: ${s.health}</p>
+                        <p>📊 Investments:</p>
+                        <ul>
+                `;
+                
+                if (s.investments.length === 0) {
+                    html += `<li>No investments</li>`;
+                } else {
+                    for (let inv of s.investments) {
+                        html += `<li>$${inv.amount.toLocaleString()} @ ${inv.rate}% p.a.</li>`;
+                    }
+                }
+                
+                html += `</ul></div>`;
+            }
+            
+            modalContent.innerHTML = html;
+            modal.style.display = 'flex';
+        }
+        
+        function showReport() {
+            const modal = document.getElementById('modal');
+            const modalContent = document.getElementById('modalContent');
+            
+            let html = `<h2>📊 CURRENT GAME REPORT</h2>`;
+            let totalWealth = 0;
+            
+            for (let player of players) {
+                let investmentTotal = player.investments.reduce((sum, inv) => sum + inv.amount, 0);
+                let totalValue = player.cash + investmentTotal;
+                totalWealth += totalValue;
+                
+                html += `
+                    <div style="border: 1px solid #e2e8f0; padding: 15px; margin: 15px 0; border-radius: 10px;">
+                        <h3>${player.name}</h3>
+                        <p>💰 Monthly Income: $${player.monthlyIncome.toLocaleString()}</p>
+                        <p>💵 Cash: $${player.cash.toLocaleString()}</p>
+                        <p>📈 Total Investments: $${investmentTotal.toLocaleString()}</p>
+                        <p>💎 Total Wealth: $${totalValue.toLocaleString()}</p>
+                        <p>❤️ Health: ${player.health}</p>
+                        <p>🚫 Jail: ${player.inJail ? `Yes (${player.jailTurns} turns left)` : 'No'}</p>
+                `;
+                
+                if (player.investments.length > 0) {
+                    html += `<p>📊 Investment Details:</p><ul>`;
+                    for (let inv of player.investments) {
+                        html += `<li>$${inv.amount.toLocaleString()} @ ${inv.rate}% p.a.</li>`;
+                    }
+                    html += `</ul>`;
+                }
+                
+                html += `</div>`;
+            }
+            
+            html += `<h3>💰 TOTAL WEALTH: $${totalWealth.toLocaleString()}</h3>`;
+            modalContent.innerHTML = html;
+            modal.style.display = 'flex';
+        }
+        
+        function showFinalReport() {
+            const modal = document.getElementById('modal');
+            const modalContent = document.getElementById('modalContent');
+            
+            // Find winner
+            let winner = null;
+            let highestWealth = -Infinity;
+            
+            for (let player of players) {
+                let investmentTotal = player.investments.reduce((sum, inv) => sum + inv.amount, 0);
+                let totalValue = player.cash + investmentTotal;
+                if (totalValue > highestWealth) {
+                    highestWealth = totalValue;
+                    winner = player;
+                }
+            }
+            
+            let html = `<h2>🏆 GAME OVER! 🏆</h2>`;
+            html += `<h3>🎉 WINNER: ${winner.name} with $${highestWealth.toLocaleString()} total wealth! 🎉</h3>`;
+            html += `<hr>`;
+            
+            for (let player of players) {
+                let investmentTotal = player.investments.reduce((sum, inv) => sum + inv.amount, 0);
+                let totalValue = player.cash + investmentTotal;
+                
+                html += `
+                    <div style="border: 1px solid #e2e8f0; padding: 15px; margin: 15px 0; border-radius: 10px;">
+                        <h3>${player.name}</h3>
+                        <p>💰 Monthly Income: $${player.monthlyIncome.toLocaleString()}</p>
+                        <p>💵 Cash: $${player.cash.toLocaleString()}</p>
+                        <p>📈 Total Investments: $${investmentTotal.toLocaleString()}</p>
+                        <p>💎 Final Wealth: $${totalValue.toLocaleString()}</p>
+                        <p>❤️ Final Health: ${player.health}</p>
+                    </div>
+                `;
+            }
+            
+            modalContent.innerHTML = html;
+            modal.style.display = 'flex';
+        }
+        
+        function resetGame() {
+            players = [];
+            currentRound = 1;
+            currentPlayerIndex = 0;
+            playersActedThisRound = [];
+            gameActive = true;
+            updateUI();
+            showNotification("Game reset! Click 'Setup Game' to start new game.");
+        }
+        
+        function showNotification(message, type = "success") {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.style.background = type === "error" ? '#ef4444' : '#48bb78';
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+        
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+        
+        // Initial UI
+        updateUI();
+    </script>
+</body>
+</html>
