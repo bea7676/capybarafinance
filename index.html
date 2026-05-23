@@ -7,12 +7,12 @@
     <style>
         @keyframes float {
             0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-8px); }
         }
         
         @keyframes bounce {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+            50% { transform: scale(1.05); }
         }
         
         @keyframes slideIn {
@@ -31,15 +31,9 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
-        }
-        
-        @keyframes jailFlash {
-            0%, 100% { background-color: #fee2e2; }
-            50% { background-color: #fecaca; }
+        @keyframes gentlePulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
         }
         
         * {
@@ -49,8 +43,8 @@
         }
         
         body {
-            font-family: 'Segoe UI', 'Comic Neue', 'Chalkboard SE', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #8B6914 0%, #D4A017 50%, #F5D060 100%);
+            font-family: 'Segoe UI', 'Quicksand', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #A8C9A3 0%, #C5E0B4 50%, #D4E8C2 100%);
             min-height: 100vh;
             padding: 20px;
             position: relative;
@@ -59,10 +53,10 @@
         body::before {
             content: "🦫";
             position: fixed;
-            font-size: 100px;
-            opacity: 0.05;
-            bottom: 20px;
-            right: 20px;
+            font-size: 120px;
+            opacity: 0.08;
+            bottom: 10px;
+            right: 10px;
             pointer-events: none;
             animation: float 6s ease-in-out infinite;
         }
@@ -70,18 +64,17 @@
         .container {
             max-width: 1400px;
             margin: 0 auto;
-            background: rgba(255, 248, 220, 0.95);
-            border-radius: 30px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            background: #FDF8ED;
+            border-radius: 32px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
             overflow: hidden;
-            backdrop-filter: blur(5px);
-            border: 3px solid #F5D060;
+            border: 1px solid rgba(165, 180, 110, 0.3);
         }
         
         .header {
-            background: linear-gradient(135deg, #5C4033, #8B6914);
-            color: #FFE4B5;
-            padding: 25px;
+            background: linear-gradient(135deg, #6B8C5A, #8BA87A);
+            color: #FDF8ED;
+            padding: 28px;
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -90,62 +83,66 @@
         .header::before {
             content: "🦫🦫🦫";
             position: absolute;
-            font-size: 60px;
+            font-size: 50px;
             opacity: 0.1;
             left: -20px;
-            top: -20px;
+            top: -10px;
             animation: float 4s ease-in-out infinite;
         }
         
         .header::after {
             content: "🦫🦫🦫";
             position: absolute;
-            font-size: 60px;
+            font-size: 50px;
             opacity: 0.1;
             right: -20px;
-            bottom: -20px;
+            bottom: -10px;
             animation: float 5s ease-in-out infinite reverse;
         }
         
         .header h1 {
-            font-size: 2.5em;
-            text-shadow: 3px 3px 0 #5C4033;
+            font-size: 2.3em;
+            letter-spacing: 2px;
+            font-weight: 600;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
             animation: fadeIn 1s ease-out;
         }
         
         .header p {
-            font-size: 1.2em;
+            font-size: 1.1em;
             opacity: 0.9;
+            margin-top: 8px;
         }
         
         .game-info {
             display: flex;
             justify-content: space-around;
-            background: #5C4033;
-            padding: 15px;
-            color: #FFE4B5;
+            background: #E8DCC8;
+            padding: 12px 20px;
+            color: #5A6E4A;
             flex-wrap: wrap;
-            border-bottom: 3px solid #F5D060;
+            border-bottom: 1px solid #D4C4A8;
         }
         
         .game-info div {
-            font-size: 18px;
-            margin: 5px;
-            padding: 8px 15px;
-            background: rgba(255, 228, 181, 0.1);
+            font-size: 16px;
+            margin: 4px;
+            padding: 6px 14px;
+            background: #FDF8ED;
             border-radius: 20px;
             animation: fadeIn 0.5s ease-out;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
         
         .game-info span {
             font-weight: bold;
-            color: #F5D060;
+            color: #8B7355;
         }
         
         .main-content {
             display: flex;
-            padding: 20px;
-            gap: 20px;
+            padding: 24px;
+            gap: 24px;
             flex-wrap: wrap;
         }
         
@@ -158,75 +155,92 @@
         
         .actions-panel {
             flex: 1;
-            background: linear-gradient(135deg, #FFF8DC, #FFE4B5);
-            padding: 20px;
-            border-radius: 20px;
+            background: #F5F0E6;
+            padding: 24px;
+            border-radius: 24px;
             min-width: 250px;
-            border: 2px solid #F5D060;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border: 1px solid #E0D4C0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
             animation: fadeIn 0.7s ease-out;
         }
         
         .actions-panel h3 {
-            color: #5C4033;
+            color: #6B8C5A;
             text-align: center;
-            margin-bottom: 15px;
-            font-size: 1.5em;
+            margin-bottom: 18px;
+            font-size: 1.4em;
+            font-weight: 600;
         }
         
         table {
             width: 100%;
             border-collapse: collapse;
-            border-radius: 15px;
+            border-radius: 16px;
             overflow: hidden;
         }
         
         th, td {
-            padding: 12px;
+            padding: 14px 12px;
             text-align: left;
-            border-bottom: 1px solid #F5D060;
+            border-bottom: 1px solid #E8DEC8;
         }
         
         th {
-            background: #8B6914;
+            background: #8BA87A;
             color: white;
-            font-weight: bold;
+            font-weight: 600;
+            font-size: 14px;
         }
         
         tr {
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
+        }
+        
+        tr:hover {
+            background: #F5F0E6;
         }
         
         .current-turn {
-            background: linear-gradient(90deg, #FFF3C4, #FFE4B5);
-            font-weight: bold;
-            animation: bounce 0.5s ease;
+            background: linear-gradient(90deg, #FFF8E7, #FDF0D8);
+            border-left: 4px solid #8BA87A;
+            font-weight: 500;
         }
         
-        .in-jail {
-            background: #fee2e2;
-            animation: jailFlash 1s ease infinite;
+        .in-jail-row {
+            background: #FAE8E8;
+            opacity: 0.85;
+        }
+        
+        .jail-badge {
+            display: inline-block;
+            background: #C9A0A0;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            margin-left: 8px;
+            font-weight: normal;
         }
         
         button {
             width: 100%;
             padding: 12px;
             margin: 8px 0;
-            background: linear-gradient(135deg, #8B6914, #D4A017);
+            background: #8BA87A;
             color: white;
             border: none;
-            border-radius: 25px;
+            border-radius: 40px;
             cursor: pointer;
             font-size: 14px;
-            font-weight: bold;
-            transition: all 0.3s;
-            box-shadow: 0 3px 5px rgba(0,0,0,0.2);
+            font-weight: 500;
+            transition: all 0.2s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
         
         button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            background: linear-gradient(135deg, #D4A017, #F5D060);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            background: #9BBA88;
         }
         
         button:active {
@@ -234,19 +248,19 @@
         }
         
         .danger-btn {
-            background: linear-gradient(135deg, #dc2626, #ef4444);
+            background: #C9A0A0;
         }
         
         .danger-btn:hover {
-            background: linear-gradient(135deg, #ef4444, #f87171);
+            background: #D4AEAE;
         }
         
         .success-btn {
-            background: linear-gradient(135deg, #059669, #10b981);
+            background: #8FB8A0;
         }
         
         .success-btn:hover {
-            background: linear-gradient(135deg, #10b981, #34d399);
+            background: #A0C9B0;
         }
         
         .modal {
@@ -256,7 +270,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.8);
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
             justify-content: center;
             align-items: center;
             z-index: 1000;
@@ -264,13 +279,13 @@
         }
         
         .modal-content {
-            background: linear-gradient(135deg, #FFF8DC, #FFE4B5);
-            padding: 30px;
-            border-radius: 30px;
+            background: #FDF8ED;
+            padding: 32px;
+            border-radius: 32px;
             max-width: 900px;
             max-height: 85vh;
             overflow-y: auto;
-            border: 3px solid #F5D060;
+            border: 1px solid #E0D4C0;
             animation: slideIn 0.3s ease-out;
         }
         
@@ -286,115 +301,104 @@
         .podium {
             text-align: center;
             padding: 20px;
-            border-radius: 20px 20px 0 0;
-            min-width: 180px;
+            border-radius: 16px 16px 0 0;
+            min-width: 170px;
             transition: all 0.3s ease;
             animation: fadeIn 0.5s ease-out;
         }
         
         .podium:hover {
-            transform: translateY(-5px);
+            transform: translateY(-4px);
         }
         
         .podium-1 {
-            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            background: linear-gradient(135deg, #F5E6B8, #F0DC9C);
             height: 200px;
             order: 2;
-            box-shadow: 0 -5px 20px rgba(255,215,0,0.5);
+            box-shadow: 0 -4px 20px rgba(200, 170, 80, 0.2);
         }
         
         .podium-2 {
-            background: linear-gradient(135deg, #c0c0c0, #e8e8e8);
+            background: linear-gradient(135deg, #E0E0E0, #D0D0D0);
             height: 150px;
             order: 1;
         }
         
         .podium-3 {
-            background: linear-gradient(135deg, #cd7f32, #e8a866);
+            background: linear-gradient(135deg, #E0C8A8, #D4B898);
             height: 100px;
             order: 3;
         }
         
         .podium h2 {
-            font-size: 28px;
+            font-size: 24px;
             margin: 10px 0;
-            color: #5C4033;
+            color: #5A6E4A;
         }
         
         .podium .trophy {
-            font-size: 48px;
-            animation: bounce 1s ease infinite;
+            font-size: 44px;
+            animation: gentlePulse 2s ease infinite;
         }
         
         .podium .amount {
-            font-size: 18px;
-            font-weight: bold;
+            font-size: 16px;
+            font-weight: 600;
             margin: 10px 0;
+            color: #6B8C5A;
         }
         
         .medal {
-            font-size: 36px;
+            font-size: 34px;
         }
         
         .ranking-list {
             margin-top: 30px;
-            border-top: 2px solid #F5D060;
+            border-top: 2px solid #E0D4C0;
             padding-top: 20px;
         }
         
         .ranking-item {
             display: flex;
             justify-content: space-between;
-            padding: 12px;
+            padding: 12px 16px;
             margin: 8px 0;
-            background: rgba(255, 248, 220, 0.8);
-            border-radius: 15px;
-            transition: all 0.3s ease;
+            background: #F5F0E6;
+            border-radius: 16px;
+            transition: all 0.2s ease;
         }
         
         .ranking-item:hover {
-            transform: translateX(5px);
-            background: #FFF8DC;
+            background: #EDE4D8;
+            transform: translateX(4px);
         }
         
         .health-conversion {
-            background: linear-gradient(135deg, #FEF3C7, #FFE4B5);
-            padding: 15px;
+            background: #F5F0E6;
+            padding: 16px;
             border-radius: 20px;
             margin: 15px 0;
-            border: 2px solid #F5D060;
+            border: 1px solid #E0D4C0;
         }
         
         .notification {
             position: fixed;
             top: 20px;
             right: 20px;
-            background: linear-gradient(135deg, #10b981, #059669);
+            background: #8BA87A;
             color: white;
-            padding: 15px 25px;
+            padding: 14px 24px;
             border-radius: 50px;
             animation: slideIn 0.3s ease-out;
             z-index: 1000;
-            font-weight: bold;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-        
-        .jail-badge {
-            display: inline-block;
-            background: #dc2626;
-            color: white;
-            padding: 2px 10px;
-            border-radius: 20px;
-            font-size: 11px;
-            margin-left: 8px;
-            animation: shake 0.5s ease;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
         
         .capybara-emoji {
-            font-size: 24px;
+            font-size: 20px;
             display: inline-block;
             animation: float 3s ease-in-out infinite;
-            cursor: pointer;
         }
         
         @media (max-width: 768px) {
@@ -421,7 +425,7 @@
             <div>👥 Players: <span id="playerCount">0</span></div>
             <div>🎯 Current Turn: <span id="currentPlayer">-</span></div>
             <div>🚫 In Jail: <span id="jailStatus">None</span></div>
-            <div><span class="capybara-emoji">🦫</span> Chill Mode: <span id="chillMode">ACTIVE</span></div>
+            <div><span class="capybara-emoji">🦫</span> Chill Mode: ON</div>
         </div>
         
         <div class="main-content">
@@ -492,8 +496,8 @@
                     cash: 0,
                     investments: [],
                     health: 5,
-                    inJail: false,           // Currently in jail?
-                    needsToSkipNextTurn: false // Will skip next turn when true
+                    inJail: false,           // Currently serving jail time?
+                    skipNextRound: false      // Will skip entire next round?
                 });
             }
             
@@ -503,7 +507,7 @@
             gameActive = true;
             
             updateUI();
-            showNotification(`🦫 Welcome ${players.length} capybaras! Each starts with $5,000 monthly income and 5 health. Chill mode: ON!`);
+            showNotification(`🦫 Welcome ${players.length} capybaras! Each starts with $5,000 monthly income and 5 health.`);
         }
         
         // ========== UI UPDATE ==========
@@ -513,8 +517,8 @@
             
             if (players.length > 0 && gameActive) {
                 document.getElementById('currentPlayer').textContent = players[currentPlayerIndex].name;
-                const jailedPlayers = players.filter(p => p.needsToSkipNextTurn).map(p => p.name);
-                document.getElementById('jailStatus').textContent = jailedPlayers.length > 0 ? jailedPlayers.join(', ') + ' (skip next turn)' : 'None';
+                const jailedPlayers = players.filter(p => p.skipNextRound).map(p => p.name);
+                document.getElementById('jailStatus').textContent = jailedPlayers.length > 0 ? jailedPlayers.join(', ') + ' (skip next round)' : 'None';
             }
             
             const tbody = document.getElementById('playersTableBody');
@@ -523,20 +527,17 @@
             players.forEach((player, idx) => {
                 const row = tbody.insertRow();
                 const isCurrentTurn = (idx === currentPlayerIndex && gameActive);
-                const willSkipTurn = player.needsToSkipNextTurn;
-                const isCurrentlyJailed = player.inJail;
+                const willSkipRound = player.skipNextRound;
                 
-                if (isCurrentTurn && willSkipTurn) row.className = 'in-jail';
+                if (isCurrentTurn && willSkipRound) row.className = 'in-jail-row';
                 else if (isCurrentTurn) row.className = 'current-turn';
-                else if (willSkipTurn) row.className = 'in-jail';
+                else if (willSkipRound) row.className = 'in-jail-row';
                 
                 // Player name
                 let nameCell = row.insertCell(0);
                 nameCell.innerHTML = isCurrentTurn ? `👉 ${player.name} 👈` : player.name;
-                if (willSkipTurn) {
-                    nameCell.innerHTML += ' <span class="jail-badge">🚫 JAIL (skip next turn)</span>';
-                } else if (isCurrentlyJailed) {
-                    nameCell.innerHTML += ' <span class="jail-badge">🚫 IN JAIL</span>';
+                if (willSkipRound) {
+                    nameCell.innerHTML += ' <span class="jail-badge">🚫 JAIL (skip next round)</span>';
                 }
                 
                 // Monthly income
@@ -546,7 +547,7 @@
                 // Cash
                 let cashCell = row.insertCell(2);
                 cashCell.innerHTML = `$${player.cash.toLocaleString()}`;
-                cashCell.style.color = player.cash < 0 ? '#dc2626' : '#10b981';
+                cashCell.style.color = player.cash < 0 ? '#C9A0A0' : '#8BA87A';
                 
                 // Investments
                 let investCell = row.insertCell(3);
@@ -562,12 +563,12 @@
                 let healthCell = row.insertCell(4);
                 let healthEmoji = player.health > 7 ? '🦫💪' : player.health > 3 ? '🦫' : '😢';
                 healthCell.innerHTML = `${healthEmoji} ${player.health}`;
-                healthCell.style.color = player.health < 3 ? '#dc2626' : '#10b981';
+                healthCell.style.color = player.health < 3 ? '#C9A0A0' : '#8BA87A';
                 
                 // Status
                 let statusCell = row.insertCell(5);
-                if (player.needsToSkipNextTurn) {
-                    statusCell.innerHTML = '🚫 WILL SKIP NEXT TURN';
+                if (player.skipNextRound) {
+                    statusCell.innerHTML = '🚫 WILL SKIP NEXT ROUND';
                 } else if (playersActedThisRound.includes(player.id)) {
                     statusCell.innerHTML = '✅ Acted this round';
                 } else {
@@ -579,7 +580,6 @@
         // ========== CURRENT PLAYER HELPER ==========
         function getCurrentPlayer() {
             if (!gameActive || players.length === 0) {
-                showNotification("Game not active or no players!", "error");
                 return null;
             }
             return players[currentPlayerIndex];
@@ -589,9 +589,9 @@
             const player = getCurrentPlayer();
             if (!player) return false;
             
-            // If player needs to skip this turn (in jail), they cannot act
-            if (player.needsToSkipNextTurn) {
-                showNotification(`🚫 ${player.name} is in jail! Cannot take actions this turn. Press 'End Turn' to skip.`);
+            // If player needs to skip this round (in jail), they cannot act
+            if (player.skipNextRound) {
+                showNotification(`🚫 ${player.name} is in jail! Cannot take actions this round. Press 'End Turn' to serve time.`);
                 return false;
             }
             return true;
@@ -649,7 +649,7 @@
             });
             
             player.cash -= amount;
-            showNotification(`🦫 ${player.name} invested $${amount.toLocaleString()} at ${rate}% interest! Smart capybara!`);
+            showNotification(`🦫 ${player.name} invested $${amount.toLocaleString()} at ${rate}% interest!`);
             updateUI();
         }
         
@@ -678,14 +678,14 @@
             const player = getCurrentPlayer();
             if (!player) return;
             
-            if (player.needsToSkipNextTurn) {
+            if (player.skipNextRound) {
                 showNotification(`⚠️ ${player.name} is already in jail!`, "error");
                 return;
             }
             
-            // Send to jail - they will skip their NEXT turn
-            player.needsToSkipNextTurn = true;
-            showNotification(`🚫 ${player.name} sent to jail! They will complete this turn normally, but will skip their NEXT turn.`);
+            // Send to jail - they will skip the NEXT round
+            player.skipNextRound = true;
+            showNotification(`🚫 ${player.name} sent to jail! They will complete this turn normally, but will skip their NEXT round entirely.`);
             updateUI();
         }
         
@@ -693,18 +693,17 @@
             const player = getCurrentPlayer();
             if (!player) return;
             
-            // Handle jail: if they need to skip this turn, clear the flag after skipping
-            if (player.needsToSkipNextTurn) {
-                showNotification(`🚫 ${player.name} served their jail time! They are now released.`);
-                player.needsToSkipNextTurn = false;  // Release after skipping
-                player.inJail = false;
-            } else {
-                showNotification(`✅ ${player.name} finished their turn! 🦫`);
-            }
-            
             // Mark as acted
             if (!playersActedThisRound.includes(player.id)) {
                 playersActedThisRound.push(player.id);
+                
+                if (player.skipNextRound) {
+                    // This player is in jail - they are serving their time now
+                    showNotification(`🚫 ${player.name} served their jail sentence! They will be released.`);
+                    player.skipNextRound = false;  // Release after serving
+                } else {
+                    showNotification(`✅ ${player.name} finished their turn! 🦫`);
+                }
             }
             
             // Find next player who hasn't acted
@@ -726,8 +725,8 @@
             } else {
                 updateUI();
                 const nextPlayer = players[currentPlayerIndex];
-                if (nextPlayer.needsToSkipNextTurn) {
-                    showNotification(`🚫 ${nextPlayer.name} is in jail! They will skip this turn. Press 'End Turn' to serve time.`);
+                if (nextPlayer.skipNextRound) {
+                    showNotification(`🚫 ${nextPlayer.name} is in jail for next round! They will need to serve their sentence.`);
                 } else {
                     showNotification(`🦫 Now it's ${nextPlayer.name}'s turn!`);
                 }
@@ -740,9 +739,7 @@
                 return;
             }
             
-            // Calculate annual income and update cash
-            let roundSummary = [];
-            
+            // Calculate annual income and update cash for all players
             for (let player of players) {
                 // Annual income = monthly income × 12
                 const annualIncome = player.monthlyIncome * 12;
@@ -757,23 +754,9 @@
                 }
                 player.cash += totalInvestmentReturn;
                 
-                roundSummary.push({
-                    name: player.name,
-                    monthlyIncome: player.monthlyIncome,
-                    annualIncome: annualIncome,
-                    investmentReturn: totalInvestmentReturn,
-                    cash: player.cash,
-                    health: player.health,
-                    needsToSkipNextTurn: player.needsToSkipNextTurn,
-                    investments: [...player.investments]
-                });
-                
-                // IMPORTANT: Do NOT reset needsToSkipNextTurn here!
+                // IMPORTANT: Do NOT reset skipNextRound here!
                 // Jail status persists to next round
             }
-            
-            // Show popup with round stats
-            showRoundPopup(roundSummary);
             
             currentRound++;
             playersActedThisRound = [];
@@ -786,49 +769,14 @@
                 showNotification(`🎉 ROUND ${currentRound - 1} COMPLETE! Starting Round ${currentRound}`);
                 
                 // Show which players are still in jail for next round
-                const jailedPlayers = players.filter(p => p.needsToSkipNextTurn).map(p => p.name);
+                const jailedPlayers = players.filter(p => p.skipNextRound).map(p => p.name);
                 if (jailedPlayers.length > 0) {
-                    showNotification(`🚫 ${jailedPlayers.join(', ')} are in jail and will skip their next turn in Round ${currentRound}!`, "error");
+                    showNotification(`🚫 ${jailedPlayers.join(', ')} are in jail and will skip Round ${currentRound}!`, "error");
                 }
                 
                 updateUI();
                 showNotification(`🦫 Round ${currentRound} begins! ${players[0].name} starts.`);
             }
-        }
-        
-        function showRoundPopup(summary) {
-            const modal = document.getElementById('modal');
-            const modalContent = document.getElementById('modalContent');
-            
-            let html = `<h2>📊 END OF ROUND ${currentRound} REPORT</h2>`;
-            html += `<div class="capybara-emoji" style="font-size: 40px; text-align: center;">🦫🦫🦫</div>`;
-            
-            for (let s of summary) {
-                html += `
-                    <div style="border: 2px solid #F5D060; padding: 15px; margin: 15px 0; border-radius: 15px; background: rgba(255,248,220,0.8);">
-                        <h3>${s.name} ${s.needsToSkipNextTurn ? '🚫 (IN JAIL - Will skip next turn!)' : '✅ (Free)'}</h3>
-                        <p>💰 Monthly Income: $${s.monthlyIncome.toLocaleString()}</p>
-                        <p>📅 Annual Income (×12): $${s.annualIncome.toLocaleString()}</p>
-                        <p>📈 Investment Returns: $${s.investmentReturn.toLocaleString()}</p>
-                        <p>💵 Total Cash After Round: $${s.cash.toLocaleString()}</p>
-                        <p>❤️ Health: ${s.health}</p>
-                        <p>📊 Investments:</p>
-                        <ul>
-                `;
-                
-                if (s.investments.length === 0) {
-                    html += `<li>No investments 🌱</li>`;
-                } else {
-                    for (let inv of s.investments) {
-                        html += `<li>💰 $${inv.amount.toLocaleString()} @ ${inv.rate}% p.a.</li>`;
-                    }
-                }
-                
-                html += `</ul></div>`;
-            }
-            
-            modalContent.innerHTML = html;
-            modal.style.display = 'flex';
         }
         
         function showFinalReportWithPodium() {
@@ -861,19 +809,17 @@
             let html = `
                 <h1 style="text-align: center;">🏆 GAME OVER! 🏆</h1>
                 <div style="text-align: center; font-size: 60px;">🦫👑🦫</div>
-                <h2 style="text-align: center;">Final Capybara Rankings with Health Conversion</h2>
+                <h2 style="text-align: center;">Final Capybara Rankings</h2>
                 
                 <div class="health-conversion">
                     <h3>💝 Health Point Conversion:</h3>
                     <p>Each health point = $1,000 bonus added to total wealth!</p>
                     <p>Final Score = (Cash + Investments) + (Health × $1,000)</p>
-                    <p style="text-align: center; font-size: 20px;">🦫 A healthy capybara is a wealthy capybara! 🦫</p>
                 </div>
                 
                 <div class="podium-container">
             `;
             
-            // Podium positions (1st, 2nd, 3rd)
             const medals = ['🥇', '🥈', '🥉'];
             
             for (let i = 0; i < Math.min(3, rankings.length); i++) {
@@ -892,7 +838,7 @@
                 `;
             }
             
-            html += `</div><div class="ranking-list"><h3>📊 Complete Capybara Rankings:</h3>`;
+            html += `</div><div class="ranking-list"><h3>📊 Complete Rankings:</h3>`;
             
             for (let i = 0; i < rankings.length; i++) {
                 const r = rankings[i];
@@ -901,7 +847,7 @@
                     <div class="ranking-item">
                         <span><strong>${medalIcon}</strong> ${r.name} ${i === 0 ? '🦫👑' : '🦫'}</span>
                         <span>💰 $${r.finalScore.toLocaleString()}</span>
-                        <span style="font-size: 11px; color: #8B6914;">
+                        <span style="font-size: 11px; color: #8B7355;">
                             ($${r.wealth.toLocaleString()} + ${r.health}❤️ = $${r.healthBonus.toLocaleString()})
                         </span>
                     </div>
@@ -918,7 +864,6 @@
             const modalContent = document.getElementById('modalContent');
             
             let html = `<h2>📊 CURRENT GAME REPORT - ROUND ${currentRound}</h2>`;
-            html += `<div class="capybara-emoji" style="font-size: 30px; text-align: center;">🦫 Chill Report 🦫</div>`;
             let totalWealth = 0;
             
             for (let player of players) {
@@ -927,8 +872,8 @@
                 totalWealth += totalValue;
                 
                 html += `
-                    <div style="border: 2px solid #F5D060; padding: 15px; margin: 15px 0; border-radius: 15px;">
-                        <h3>${player.name} ${player.needsToSkipNextTurn ? '🚫 (IN JAIL - Skip next turn)' : '🦫 (Free)'}</h3>
+                    <div style="border: 1px solid #E0D4C0; padding: 15px; margin: 15px 0; border-radius: 16px; background: #F5F0E6;">
+                        <h3>${player.name} ${player.skipNextRound ? '🚫 (IN JAIL - Skip next round)' : '🦫'}</h3>
                         <p>💰 Monthly Income: $${player.monthlyIncome.toLocaleString()}</p>
                         <p>💵 Cash: $${player.cash.toLocaleString()}</p>
                         <p>📈 Total Investments: $${investmentTotal.toLocaleString()}</p>
@@ -959,19 +904,19 @@
             playersActedThisRound = [];
             gameActive = true;
             updateUI();
-            showNotification("🦫 Game reset! Time for a fresh pond! Click 'Setup Game' to start.");
+            showNotification("🦫 Game reset! Click 'Setup Game' to start fresh.");
         }
         
         function showNotification(message, type = "success") {
             const notification = document.createElement('div');
             notification.className = 'notification';
-            notification.style.background = type === "error" ? 'linear-gradient(135deg, #dc2626, #ef4444)' : 'linear-gradient(135deg, #10b981, #059669)';
+            notification.style.background = type === "error" ? '#C9A0A0' : '#8BA87A';
             notification.textContent = message;
             document.body.appendChild(notification);
             
             setTimeout(() => {
                 notification.remove();
-            }, 4000);
+            }, 3500);
         }
         
         function closeModal() {
