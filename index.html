@@ -275,135 +275,212 @@
         
         .modal-content {
             background: #FDF8ED;
-            padding: 32px;
+            padding: 40px;
             border-radius: 32px;
-            max-width: 900px;
-            max-height: 85vh;
+            max-width: 95%;
+            width: 1200px;
+            max-height: 90vh;
             overflow-y: auto;
             border: 1px solid #E0D4C0;
             animation: slideIn 0.3s ease-out;
         }
         
+        /* Improved Podium Styles - More Spacious */
         .podium-container {
             display: flex;
             justify-content: center;
             align-items: flex-end;
-            gap: 20px;
-            margin: 30px 0;
+            gap: 40px;
+            margin: 40px 0;
             flex-wrap: wrap;
         }
         
         .podium {
             text-align: center;
-            padding: 20px;
-            border-radius: 16px 16px 0 0;
-            min-width: 170px;
+            padding: 30px 25px;
+            border-radius: 20px 20px 0 0;
+            min-width: 220px;
             transition: all 0.3s ease;
             animation: fadeIn 0.5s ease-out;
         }
         
         .podium:hover {
-            transform: translateY(-4px);
+            transform: translateY(-5px);
         }
         
         .podium-1 {
             background: linear-gradient(135deg, #F5E6B8, #F0DC9C);
-            height: 200px;
+            height: 250px;
             order: 2;
-            box-shadow: 0 -4px 20px rgba(200, 170, 80, 0.2);
+            box-shadow: 0 -8px 25px rgba(200, 170, 80, 0.3);
         }
         
         .podium-2 {
-            background: linear-gradient(135deg, #E0E0E0, #D0D0D0);
-            height: 150px;
+            background: linear-gradient(135deg, #E8E8E8, #D8D8D8);
+            height: 200px;
             order: 1;
+            box-shadow: 0 -6px 20px rgba(0,0,0,0.1);
         }
         
         .podium-3 {
-            background: linear-gradient(135deg, #E0C8A8, #D4B898);
-            height: 100px;
+            background: linear-gradient(135deg, #E0C8A8, #D0B898);
+            height: 160px;
             order: 3;
+            box-shadow: 0 -4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .podium .medal {
+            font-size: 48px;
+            margin-bottom: 10px;
         }
         
         .podium h2 {
-            font-size: 24px;
-            margin: 10px 0;
+            font-size: 28px;
+            margin: 15px 0;
             color: #5A6E4A;
+            font-weight: 700;
         }
         
         .podium .trophy {
-            font-size: 44px;
+            font-size: 55px;
+            margin: 10px 0;
+            animation: gentlePulse 2s ease infinite;
         }
         
         .podium .amount {
-            font-size: 16px;
-            font-weight: 600;
-            margin: 10px 0;
+            font-size: 22px;
+            font-weight: 700;
+            margin: 15px 0;
             color: #6B8C5A;
         }
         
-        .medal {
-            font-size: 34px;
+        @keyframes gentlePulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.9; }
         }
         
+        /* Ranking List - More Spread Out */
         .ranking-list {
-            margin-top: 30px;
-            border-top: 2px solid #E0D4C0;
-            padding-top: 20px;
+            margin-top: 40px;
+            border-top: 3px solid #E0D4C0;
+            padding-top: 30px;
+        }
+        
+        .ranking-list h3 {
+            font-size: 28px;
+            margin-bottom: 25px;
+            color: #5A6E4A;
+            text-align: center;
+        }
+        
+        .ranking-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
         }
         
         .ranking-item {
             display: flex;
             justify-content: space-between;
-            padding: 12px 16px;
-            margin: 8px 0;
+            align-items: center;
+            padding: 18px 24px;
+            margin: 0;
             background: #F5F0E6;
-            border-radius: 16px;
+            border-radius: 20px;
             transition: all 0.2s ease;
+            border: 1px solid #E8DEC8;
         }
         
         .ranking-item:hover {
             background: #EDE4D8;
-            transform: translateX(4px);
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
         
+        .ranking-name {
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .ranking-score {
+            font-size: 20px;
+            font-weight: 700;
+            color: #6B8C5A;
+        }
+        
+        .ranking-detail {
+            font-size: 13px;
+            color: #8B7355;
+            font-family: monospace;
+        }
+        
+        /* Health Conversion Box - More Spacious */
         .health-conversion {
             background: #F5F0E6;
-            padding: 16px;
-            border-radius: 20px;
-            margin: 15px 0;
-            border: 1px solid #E0D4C0;
+            padding: 25px;
+            border-radius: 24px;
+            margin: 25px 0;
+            border: 2px solid #E0D4C0;
+            text-align: center;
         }
         
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
+        .health-conversion h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #5A6E4A;
+        }
+        
+        .health-conversion p {
+            font-size: 16px;
+            margin: 8px 0;
+            line-height: 1.5;
+        }
+        
+        .release-btn {
+            background: #8FB8A0;
+            margin-top: 5px;
+            font-size: 12px;
+            padding: 6px;
+        }
+        
+        .release-btn:hover {
+            background: #A0C9B0;
+        }
+        
+        .close-modal-btn {
             background: #8BA87A;
-            color: white;
-            padding: 14px 24px;
-            border-radius: 50px;
-            animation: slideIn 0.3s ease-out;
-            z-index: 1000;
-            font-weight: 500;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-        
-        .capybara-emoji {
-            font-size: 20px;
-            display: inline-block;
-            animation: float 3s ease-in-out infinite;
+            padding: 14px 28px;
+            width: auto;
+            margin: 25px auto 0;
+            display: block;
+            font-size: 16px;
         }
         
         @media (max-width: 768px) {
             .podium {
-                min-width: 120px;
+                min-width: 150px;
+                padding: 20px 15px;
             }
-            .podium-1 { height: 150px; }
-            .podium-2 { height: 120px; }
-            .podium-3 { height: 90px; }
-            .podium .amount { font-size: 12px; }
-            .header h1 { font-size: 1.8em; }
+            .podium-1 { height: 180px; }
+            .podium-2 { height: 150px; }
+            .podium-3 { height: 120px; }
+            .podium .amount { font-size: 14px; }
+            .podium h2 { font-size: 20px; }
+            .podium .medal { font-size: 32px; }
+            .podium .trophy { font-size: 36px; }
+            .ranking-grid {
+                grid-template-columns: 1fr;
+            }
+            .modal-content {
+                padding: 25px;
+                width: 98%;
+            }
+            .ranking-name { font-size: 14px; }
+            .ranking-score { font-size: 16px; }
         }
     </style>
 </head>
@@ -433,6 +510,7 @@
                             <th>Investments</th>
                             <th>Health</th>
                             <th>Status</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody id="playersTableBody">
@@ -459,7 +537,7 @@
     <div id="modal" class="modal">
         <div class="modal-content">
             <div id="modalContent"></div>
-            <button onclick="closeModal()" style="margin-top: 20px;">Close 🦫</button>
+            <button onclick="closeModal()" class="close-modal-btn">Close 🦫</button>
         </div>
     </div>
 
@@ -470,7 +548,7 @@
         let currentPlayerIndex = 0;
         let playersActedThisRound = [];
         let gameActive = true;
-        let totalRounds = 10;  // Changed to 10 rounds
+        let totalRounds = 10;
         
         // ========== SETUP ==========
         function setupGame() {
@@ -490,8 +568,7 @@
                     cash: 0,
                     investments: [],
                     health: 5,
-                    isInJail: false,           // Currently serving jail time (cannot act)
-                    pendingJail: false           // Will go to jail next round
+                    inJail: false
                 });
             }
             
@@ -511,7 +588,7 @@
             
             if (players.length > 0 && gameActive) {
                 document.getElementById('currentPlayer').textContent = players[currentPlayerIndex].name;
-                const jailedPlayers = players.filter(p => p.isInJail).map(p => p.name);
+                const jailedPlayers = players.filter(p => p.inJail).map(p => p.name);
                 document.getElementById('jailStatus').textContent = jailedPlayers.length > 0 ? jailedPlayers.join(', ') : 'None';
             }
             
@@ -521,8 +598,7 @@
             players.forEach((player, idx) => {
                 const row = tbody.insertRow();
                 const isCurrentTurn = (idx === currentPlayerIndex && gameActive);
-                const isInJail = player.isInJail;
-                const hasPendingJail = player.pendingJail;
+                const isInJail = player.inJail;
                 
                 if (isCurrentTurn && isInJail) row.className = 'in-jail-row';
                 else if (isCurrentTurn) row.className = 'current-turn';
@@ -532,9 +608,7 @@
                 let nameCell = row.insertCell(0);
                 nameCell.innerHTML = isCurrentTurn ? `👉 ${player.name} 👈` : player.name;
                 if (isInJail) {
-                    nameCell.innerHTML += ' <span class="jail-badge">🚫 IN JAIL (serving)</span>';
-                } else if (hasPendingJail) {
-                    nameCell.innerHTML += ' <span class="jail-badge">⚠️ JAIL NEXT ROUND</span>';
+                    nameCell.innerHTML += ' <span class="jail-badge">🚫 IN JAIL</span>';
                 }
                 
                 // Monthly income
@@ -558,20 +632,32 @@
                 
                 // Health
                 let healthCell = row.insertCell(4);
-                let healthEmoji = player.health > 7 ? '🦫💪' : player.health > 3 ? '🦫' : '😢';
+                let healthEmoji = player.health > 7 ? '🦫💪' : player.health > 3 ? '🦫' : player.health > 0 ? '😢' : '💀';
                 healthCell.innerHTML = `${healthEmoji} ${player.health}`;
-                healthCell.style.color = player.health < 3 ? '#C9A0A0' : '#8BA87A';
+                healthCell.style.color = player.health < 0 ? '#C9A0A0' : '#8BA87A';
                 
                 // Status
                 let statusCell = row.insertCell(5);
-                if (player.isInJail) {
-                    statusCell.innerHTML = '🚫 IN JAIL (serving this round)';
-                } else if (player.pendingJail) {
-                    statusCell.innerHTML = '⚠️ WILL SERVE JAIL NEXT ROUND';
+                if (player.inJail) {
+                    statusCell.innerHTML = '🚫 IN JAIL (skip turn)';
                 } else if (playersActedThisRound.includes(player.id)) {
                     statusCell.innerHTML = '✅ Acted this round';
                 } else {
                     statusCell.innerHTML = '⏳ Pending';
+                }
+                
+                // Action button (Release from Jail)
+                let actionCell = row.insertCell(6);
+                if (player.inJail && isCurrentTurn) {
+                    const releaseBtn = document.createElement('button');
+                    releaseBtn.textContent = '🔓 Release from Jail';
+                    releaseBtn.className = 'release-btn';
+                    releaseBtn.onclick = () => releaseFromJail(player.id);
+                    actionCell.appendChild(releaseBtn);
+                } else if (player.inJail) {
+                    actionCell.innerHTML = '🚫 In Jail';
+                } else {
+                    actionCell.innerHTML = '—';
                 }
             });
         }
@@ -588,12 +674,45 @@
             const player = getCurrentPlayer();
             if (!player) return false;
             
-            // If player is currently serving jail time, they cannot act
-            if (player.isInJail) {
-                showNotification(`🚫 ${player.name} is in jail! Cannot take actions this round. Press 'End Turn' to serve time.`);
+            if (player.inJail) {
+                showNotification(`🚫 ${player.name} is in jail! You must use the 'Release from Jail' button first.`);
                 return false;
             }
             return true;
+        }
+        
+        // ========== JAIL FUNCTIONS ==========
+        function sendToJail() {
+            const player = getCurrentPlayer();
+            if (!player) return;
+            
+            if (player.inJail) {
+                showNotification(`⚠️ ${player.name} is already in jail!`, "error");
+                return;
+            }
+            
+            player.inJail = true;
+            showNotification(`🚫 ${player.name} has been sent to jail! They will need to be released on their next turn.`);
+            updateUI();
+        }
+        
+        function releaseFromJail(playerId) {
+            const player = players.find(p => p.id === playerId);
+            if (!player) return;
+            
+            if (players[currentPlayerIndex].id !== playerId) {
+                showNotification(`⚠️ It's not ${player.name}'s turn to be released!`, "error");
+                return;
+            }
+            
+            if (!player.inJail) {
+                showNotification(`⚠️ ${player.name} is not in jail!`, "error");
+                return;
+            }
+            
+            player.inJail = false;
+            showNotification(`🔓 ${player.name} has been released from jail! They can now act normally.`);
+            updateUI();
         }
         
         // ========== GAME ACTIONS ==========
@@ -603,7 +722,7 @@
             if (!player) return;
             
             const amount = parseFloat(prompt(`🦫 Current monthly income: $${player.monthlyIncome.toLocaleString()}\nEnter new monthly income:`, player.monthlyIncome));
-            if (!isNaN(amount) && amount >= 0) {
+            if (!isNaN(amount)) {
                 player.monthlyIncome = amount;
                 showNotification(`✅ ${player.name}'s monthly income set to $${amount.toLocaleString()}`);
                 updateUI();
@@ -662,53 +781,20 @@
                 player.health += change;
                 const action = change >= 0 ? "gained" : "lost";
                 showNotification(`🦫 ${player.name} ${action} ${Math.abs(change)} health. Health now: ${player.health}`);
-                
-                if (player.health <= 0) {
-                    showNotification(`💀 GAME OVER! ${player.name} has left the pond!`, "error");
-                    gameActive = false;
-                    updateUI();
-                } else {
-                    updateUI();
-                }
+                updateUI();
             }
-        }
-        
-        function sendToJail() {
-            const player = getCurrentPlayer();
-            if (!player) return;
-            
-            if (player.isInJail) {
-                showNotification(`⚠️ ${player.name} is already in jail!`, "error");
-                return;
-            }
-            
-            if (player.pendingJail) {
-                showNotification(`⚠️ ${player.name} is already scheduled for jail!`, "error");
-                return;
-            }
-            
-            // Mark player to go to jail NEXT round (not this one)
-            player.pendingJail = true;
-            showNotification(`🚫 ${player.name} has been sentenced to jail! They will serve time in the NEXT round.`);
-            updateUI();
         }
         
         function endTurn() {
             const player = getCurrentPlayer();
             if (!player) return;
             
-            // Check if player is in jail (serving time)
-            if (player.isInJail) {
-                // They served their jail time this round, now release them
-                player.isInJail = false;
-                showNotification(`🚫 ${player.name} has served their jail sentence and is now released!`);
-            }
-            
-            // Mark as acted
             if (!playersActedThisRound.includes(player.id)) {
                 playersActedThisRound.push(player.id);
-                if (!player.isInJail) {
+                if (!player.inJail) {
                     showNotification(`✅ ${player.name} finished their turn! 🦫`);
+                } else {
+                    showNotification(`⚠️ ${player.name} is still in jail! They must be released on their next turn.`);
                 }
             }
             
@@ -726,13 +812,12 @@
             }
             
             if (!nextFound) {
-                // All players have acted - end the round
                 endRound();
             } else {
                 updateUI();
                 const nextPlayer = players[currentPlayerIndex];
-                if (nextPlayer.isInJail) {
-                    showNotification(`🚫 ${nextPlayer.name} is in jail! They must serve their sentence this round. Press 'End Turn' to serve.`);
+                if (nextPlayer.inJail) {
+                    showNotification(`🚫 ${nextPlayer.name} is in jail! They need to use the 'Release from Jail' button on their turn.`);
                 } else {
                     showNotification(`🦫 Now it's ${nextPlayer.name}'s turn!`);
                 }
@@ -747,11 +832,9 @@
             
             // Calculate annual income and update cash for all players
             for (let player of players) {
-                // Annual income = monthly income × 12
                 const annualIncome = player.monthlyIncome * 12;
                 player.cash += annualIncome;
                 
-                // Calculate investment returns (interest on investments)
                 let totalInvestmentReturn = 0;
                 for (let inv of player.investments) {
                     const annualReturn = inv.amount * (inv.rate / 100);
@@ -759,16 +842,6 @@
                     inv.amount += annualReturn;
                 }
                 player.cash += totalInvestmentReturn;
-                
-                // Handle jail transitions for NEXT round
-                if (player.pendingJail && !player.isInJail) {
-                    // Player was sentenced, now they go to jail for next round
-                    player.pendingJail = false;
-                    player.isInJail = true;
-                    showNotification(`🚫 ${player.name} is now entering jail for the next round!`);
-                }
-                // Note: Players already in jail (isInJail=true) stay in jail for next round
-                // They will be released when they end their turn next round
             }
             
             currentRound++;
@@ -781,10 +854,9 @@
             } else {
                 showNotification(`🎉 ROUND ${currentRound - 1} COMPLETE! Starting Round ${currentRound}`);
                 
-                // Show which players are in jail for the new round
-                const jailedPlayers = players.filter(p => p.isInJail).map(p => p.name);
+                const jailedPlayers = players.filter(p => p.inJail).map(p => p.name);
                 if (jailedPlayers.length > 0) {
-                    showNotification(`🚫 ${jailedPlayers.join(', ')} are in jail for Round ${currentRound}!`, "error");
+                    showNotification(`🚫 ${jailedPlayers.join(', ')} are still in jail for Round ${currentRound}!`, "error");
                 }
                 
                 updateUI();
@@ -797,7 +869,6 @@
             const modal = document.getElementById('modal');
             const modalContent = document.getElementById('modalContent');
             
-            // Calculate current rankings
             let rankings = [];
             for (let player of players) {
                 let investmentTotal = player.investments.reduce((sum, inv) => sum + inv.amount, 0);
@@ -811,28 +882,27 @@
                     health: player.health,
                     healthBonus: healthBonus,
                     finalScore: finalScore,
-                    isInJail: player.isInJail,
-                    pendingJail: player.pendingJail
+                    inJail: player.inJail
                 });
             }
             
-            // Sort by final score (highest first)
             rankings.sort((a, b) => b.finalScore - a.finalScore);
             
             let html = `
-                <h1 style="text-align: center;">📊 LIVE RANKINGS - ROUND ${currentRound}</h1>
-                <div style="text-align: center; font-size: 40px; margin: 10px 0;">🦫🏆🦫</div>
+                <h1 style="text-align: center; font-size: 36px; margin-bottom: 20px;">📊 LIVE RANKINGS - ROUND ${currentRound}</h1>
+                <div style="text-align: center; font-size: 50px; margin: 15px 0;">🦫🏆🦫</div>
                 
                 <div class="health-conversion">
-                    <h3>💝 Current Standings:</h3>
-                    <p>Each health point = $1,000 bonus added to total wealth!</p>
-                    <p>Current Score = (Cash + Investments) + (Health × $1,000)</p>
+                    <h3>💝 Current Standings</h3>
+                    <p>💰 Final Score = (Cash + Investments) + (Health × $1,000)</p>
+                    <p style="font-size: 14px; color: #C9A0A0;">⚠️ Health can be negative, which reduces your score!</p>
                 </div>
                 
                 <div class="podium-container">
             `;
             
             const medals = ['🥇', '🥈', '🥉'];
+            const trophyIcons = ['👑🦫👑', '🏆', '🏅'];
             
             for (let i = 0; i < Math.min(3, rankings.length); i++) {
                 const r = rankings[i];
@@ -840,34 +910,38 @@
                     <div class="podium podium-${i+1}">
                         <div class="medal">${medals[i]}</div>
                         <h2>${r.name}</h2>
-                        <div class="trophy">${i === 0 ? '👑🦫👑' : '🏆'}</div>
+                        <div class="trophy">${trophyIcons[i]}</div>
                         <div class="amount">💰 $${r.finalScore.toLocaleString()}</div>
-                        <div style="font-size: 12px; margin-top: 10px;">
-                            Wealth: $${r.wealth.toLocaleString()}<br>
-                            Health: ${r.health} → +$${r.healthBonus.toLocaleString()}
+                        <div style="font-size: 14px; margin-top: 15px;">
+                            💵 Wealth: $${r.wealth.toLocaleString()}<br>
+                            ❤️ Health: ${r.health} → ${r.healthBonus >= 0 ? '+' : ''}$${Math.abs(r.healthBonus).toLocaleString()}
+                        </div>
+                        ${r.inJail ? '<div style="color: #C9A0A0; font-size: 13px; margin-top: 10px;">🚫 IN JAIL</div>' : ''}
+                    </div>
+                `;
+            }
+            
+            html += `</div><div class="ranking-list"><h3>📊 Complete Rankings</h3><div class="ranking-grid">`;
+            
+            for (let i = 0; i < rankings.length; i++) {
+                const r = rankings[i];
+                const medalIcon = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : `${i+1}th`;
+                const jailIcon = r.inJail ? '🚫' : '🦫';
+                html += `
+                    <div class="ranking-item">
+                        <div class="ranking-name">
+                            <span style="font-size: 24px;">${medalIcon}</span>
+                            <span>${r.name} ${jailIcon}</span>
+                        </div>
+                        <div style="text-align: right;">
+                            <div class="ranking-score">💰 $${r.finalScore.toLocaleString()}</div>
+                            <div class="ranking-detail">$${r.wealth.toLocaleString()} + ${r.health}❤️ = ${r.healthBonus >= 0 ? '+' : ''}$${Math.abs(r.healthBonus).toLocaleString()}</div>
                         </div>
                     </div>
                 `;
             }
             
-            html += `</div><div class="ranking-list"><h3>📊 Complete Rankings:</h3>`;
-            
-            for (let i = 0; i < rankings.length; i++) {
-                const r = rankings[i];
-                const medalIcon = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : `#${i+1}`;
-                const jailIcon = r.isInJail ? '🚫' : (r.pendingJail ? '⚠️' : '🦫');
-                html += `
-                    <div class="ranking-item">
-                        <span><strong>${medalIcon}</strong> ${r.name} ${jailIcon}</span>
-                        <span>💰 $${r.finalScore.toLocaleString()}</span>
-                        <span style="font-size: 11px; color: #8B7355;">
-                            ($${r.wealth.toLocaleString()} + ${r.health}❤️ = $${r.healthBonus.toLocaleString()})
-                        </span>
-                    </div>
-                `;
-            }
-            
-            html += `</div>`;
+            html += `</div></div>`;
             modalContent.innerHTML = html;
             modal.style.display = 'flex';
         }
@@ -876,13 +950,10 @@
             const modal = document.getElementById('modal');
             const modalContent = document.getElementById('modalContent');
             
-            // Calculate total wealth for each player
             let rankings = [];
             for (let player of players) {
                 let investmentTotal = player.investments.reduce((sum, inv) => sum + inv.amount, 0);
                 let totalWealth = player.cash + investmentTotal;
-                
-                // Convert health points to cash bonus ($1,000 per health point)
                 let healthBonus = player.health * 1000;
                 let finalScore = totalWealth + healthBonus;
                 
@@ -895,24 +966,24 @@
                 });
             }
             
-            // Sort by final score (highest first)
             rankings.sort((a, b) => b.finalScore - a.finalScore);
             
             let html = `
-                <h1 style="text-align: center;">🏆 GAME OVER! 🏆</h1>
-                <div style="text-align: center; font-size: 60px;">🦫👑🦫</div>
-                <h2 style="text-align: center;">Final Capybara Rankings</h2>
+                <h1 style="text-align: center; font-size: 42px; margin-bottom: 20px;">🏆 GAME OVER! 🏆</h1>
+                <div style="text-align: center; font-size: 70px; margin: 20px 0;">🦫👑🦫</div>
+                <h2 style="text-align: center; font-size: 32px; margin-bottom: 30px;">Final Capybara Rankings</h2>
                 
                 <div class="health-conversion">
-                    <h3>💝 Health Point Conversion:</h3>
-                    <p>Each health point = $1,000 bonus added to total wealth!</p>
-                    <p>Final Score = (Cash + Investments) + (Health × $1,000)</p>
+                    <h3>💝 Health Point Conversion</h3>
+                    <p>💰 Final Score = (Cash + Investments) + (Health × $1,000)</p>
+                    <p style="color: #C9A0A0; font-size: 15px;">⚠️ Negative health will reduce your final score!</p>
                 </div>
                 
                 <div class="podium-container">
             `;
             
             const medals = ['🥇', '🥈', '🥉'];
+            const trophyIcons = ['👑🦫👑', '🏆', '🏅'];
             
             for (let i = 0; i < Math.min(3, rankings.length); i++) {
                 const r = rankings[i];
@@ -920,33 +991,36 @@
                     <div class="podium podium-${i+1}">
                         <div class="medal">${medals[i]}</div>
                         <h2>${r.name}</h2>
-                        <div class="trophy">${i === 0 ? '👑🦫👑' : '🏆'}</div>
+                        <div class="trophy">${trophyIcons[i]}</div>
                         <div class="amount">💰 $${r.finalScore.toLocaleString()}</div>
-                        <div style="font-size: 12px; margin-top: 10px;">
-                            Wealth: $${r.wealth.toLocaleString()}<br>
-                            Health: ${r.health} → +$${r.healthBonus.toLocaleString()}
+                        <div style="font-size: 14px; margin-top: 15px;">
+                            💵 Wealth: $${r.wealth.toLocaleString()}<br>
+                            ❤️ Health: ${r.health} → ${r.healthBonus >= 0 ? '+' : ''}$${Math.abs(r.healthBonus).toLocaleString()}
                         </div>
                     </div>
                 `;
             }
             
-            html += `</div><div class="ranking-list"><h3>📊 Complete Rankings:</h3>`;
+            html += `</div><div class="ranking-list"><h3>📊 Complete Rankings</h3><div class="ranking-grid">`;
             
             for (let i = 0; i < rankings.length; i++) {
                 const r = rankings[i];
-                const medalIcon = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : `#${i+1}`;
+                const medalIcon = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : `${i+1}th`;
                 html += `
                     <div class="ranking-item">
-                        <span><strong>${medalIcon}</strong> ${r.name} ${i === 0 ? '🦫👑' : '🦫'}</span>
-                        <span>💰 $${r.finalScore.toLocaleString()}</span>
-                        <span style="font-size: 11px; color: #8B7355;">
-                            ($${r.wealth.toLocaleString()} + ${r.health}❤️ = $${r.healthBonus.toLocaleString()})
-                        </span>
+                        <div class="ranking-name">
+                            <span style="font-size: 28px;">${medalIcon}</span>
+                            <span style="font-size: 18px; font-weight: 600;">${r.name} ${i === 0 ? '🦫👑' : '🦫'}</span>
+                        </div>
+                        <div style="text-align: right;">
+                            <div class="ranking-score">💰 $${r.finalScore.toLocaleString()}</div>
+                            <div class="ranking-detail">$${r.wealth.toLocaleString()} + ${r.health}❤️ = ${r.healthBonus >= 0 ? '+' : ''}$${Math.abs(r.healthBonus).toLocaleString()}</div>
+                        </div>
                     </div>
                 `;
             }
             
-            html += `</div>`;
+            html += `</div></div>`;
             modalContent.innerHTML = html;
             modal.style.display = 'flex';
         }
