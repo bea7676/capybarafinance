@@ -285,13 +285,13 @@
             animation: slideIn 0.3s ease-out;
         }
         
-        /* Improved Podium Styles - More Spacious */
+        /* Podium Styles */
         .podium-container {
             display: flex;
             justify-content: center;
             align-items: flex-end;
             gap: 40px;
-            margin: 40px 0;
+            margin: 40px 0 60px 0;
             flex-wrap: wrap;
         }
         
@@ -344,7 +344,6 @@
         .podium .trophy {
             font-size: 55px;
             margin: 10px 0;
-            animation: gentlePulse 2s ease infinite;
         }
         
         .podium .amount {
@@ -354,16 +353,11 @@
             color: #6B8C5A;
         }
         
-        @keyframes gentlePulse {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.1); opacity: 0.9; }
-        }
-        
-        /* Ranking List - More Spread Out */
+        /* Ranking List - Moved Further Down */
         .ranking-list {
-            margin-top: 40px;
+            margin-top: 60px;
             border-top: 3px solid #E0D4C0;
-            padding-top: 30px;
+            padding-top: 40px;
         }
         
         .ranking-list h3 {
@@ -418,12 +412,12 @@
             font-family: monospace;
         }
         
-        /* Health Conversion Box - More Spacious */
+        /* Health Conversion Box */
         .health-conversion {
             background: #F5F0E6;
             padding: 25px;
             border-radius: 24px;
-            margin: 25px 0;
+            margin: 25px 0 40px 0;
             border: 2px solid #E0D4C0;
             text-align: center;
         }
@@ -455,9 +449,24 @@
             background: #8BA87A;
             padding: 14px 28px;
             width: auto;
-            margin: 25px auto 0;
+            margin: 30px auto 0;
             display: block;
             font-size: 16px;
+        }
+        
+        .scroll-hint {
+            text-align: center;
+            margin: 20px 0 0 0;
+            padding: 10px;
+            color: #8B7355;
+            font-size: 14px;
+            border-top: 1px dashed #E0D4C0;
+            animation: gentlePulse 2s ease infinite;
+        }
+        
+        @keyframes gentlePulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
         }
         
         @media (max-width: 768px) {
@@ -921,7 +930,13 @@
                 `;
             }
             
-            html += `</div><div class="ranking-list"><h3>📊 Complete Rankings</h3><div class="ranking-grid">`;
+            html += `</div>`;
+            
+            // Add scroll hint
+            html += `<div class="scroll-hint">👇 Scroll down for complete rankings 👇</div>`;
+            
+            // Complete rankings section - moved further down with more margin
+            html += `<div class="ranking-list"><h3>📊 Complete Rankings</h3><div class="ranking-grid">`;
             
             for (let i = 0; i < rankings.length; i++) {
                 const r = rankings[i];
@@ -1001,7 +1016,13 @@
                 `;
             }
             
-            html += `</div><div class="ranking-list"><h3>📊 Complete Rankings</h3><div class="ranking-grid">`;
+            html += `</div>`;
+            
+            // Add scroll hint
+            html += `<div class="scroll-hint">👇 Scroll down for complete rankings 👇</div>`;
+            
+            // Complete rankings section - moved further down
+            html += `<div class="ranking-list"><h3>📊 Complete Rankings</h3><div class="ranking-grid">`;
             
             for (let i = 0; i < rankings.length; i++) {
                 const r = rankings[i];
